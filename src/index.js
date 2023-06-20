@@ -27,7 +27,7 @@ class HellioMessaging {
 
     //Send SMS
     sendSMS(params) {
-        const endpoint = "/sms";
+        const endpoint = "/v2/sms";
 
         const payload = {
             senderId: params.senderId,
@@ -78,7 +78,7 @@ class HellioMessaging {
 
     //Perform a number lookup request
     numberLookup(params) {
-        const endpoint = "/hlr/request";
+        const endpoint = "/v1/hlr/request";
 
         const payload = {
             msisdn: params.msisdn,
@@ -93,7 +93,7 @@ class HellioMessaging {
 
     // Get the routing price for SMS and Voice
     getRoutingPrice(params) {
-        const endpoint = "/route/pricing";
+        const endpoint = "/v1/route/pricing";
 
         const queryParams = {
             country_code: params.country_code,
@@ -108,7 +108,7 @@ class HellioMessaging {
 
     //Get delivery report logs
     checkDeliveryReport(params) {
-        const endpoint = "/delivery-logs";
+        const endpoint = "v1/delivery-logs";
 
         const queryParams = {
             startDate: params.startDate,
@@ -125,7 +125,7 @@ class HellioMessaging {
 
     //Check your Hellio Messaging account balance
     checkBalance() {
-        const endpoint = "/credit-balance";
+        const endpoint = "/v1/credit-balance";
 
         return this.api
             .get(endpoint)
