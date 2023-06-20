@@ -1,0 +1,17 @@
+{
+  "name": "helliomessaging-nodejs",
+  "version": "1.0.0",
+  "description": "A Node.js package for integrating with Hellio Messaging API. This package provides functionalities for sending SMS, generating OTP, performing number lookup, checking delivery reports, checking sms and voice pricing and checking account balance.",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "babel src -d dist",
+    "start": "node src/index.js"
+  },
+  "author": "Albert A. Ninyeh (VimKanzo)",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "crypto": "^1.0.1",
+    "moment": "^2.29.4"
+  }
+}
