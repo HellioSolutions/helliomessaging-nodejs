@@ -25,7 +25,7 @@ npm install helliomessaging-nodejs
 
 ```javascript
 
-const HellioMessaging = require("hellio-messaging");
+const HellioMessaging = require("helliomessaging-nodejs");
 
 // Initialize the Hellio Messaging client
 const client = new HellioMessaging({
