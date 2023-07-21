@@ -17,13 +17,13 @@ A Node.js package for integrating with Hellio Messaging API. This package provid
 Describe the installation steps required to set up and run your project. Include any dependencies and prerequisites.
 
 ```bash
-npm install hellio-messaging
+npm install helliomessaging-nodejs
 
 ```
 
 ## Usage
 
-```js
+```javascript
 
 const HellioMessaging = require("hellio-messaging");
 
