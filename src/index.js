@@ -12,7 +12,6 @@ class HellioMessaging {
             baseURL: this.baseURL,
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${this.getAuthToken()}`,
             },
         });
     }
@@ -30,6 +29,8 @@ class HellioMessaging {
         const endpoint = "/v2/sms";
 
         const payload = {
+            clientId: this.clientId,
+            authKey: this.getAuthToken(),
             senderId: params.senderId,
             msisdn: params.msisdn,
             message: params.message,

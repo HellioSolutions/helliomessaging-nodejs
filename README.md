@@ -34,14 +34,14 @@ const client = new HellioMessaging({
 });
 
 // Send an SMS
-const smsParams = {
+const smsParamsOld = {
     senderId: "yourSenderId",
     msisdn: "recipientPhoneNumber",
     message: "Hello, World!",
 };
 
 client
-    .sendSMS(smsParams)
+    .sendSMS(smsParamsOld)
     .then((response) => {
         console.log("SMS sent successfully:", response);
     })
@@ -50,7 +50,7 @@ client
     });
 
 // Generate OTP
-const otpParams = {
+const otpParamsOld = {
     mobile_number: "recipientPhoneNumber",
     timeout: 60,
     message: "Your verification code is: {OTP}",
@@ -61,7 +61,7 @@ const otpParams = {
 };
 
 client
-    .sendOTP(otpParams)
+    .sendOTP(otpParamsOld)
     .then((response) => {
         console.log("OTP sent successfully:", response);
     })
@@ -70,13 +70,13 @@ client
     });
 
 // Verify OTP
-const verifyParams = {
+const verifyParamsOld = {
     mobile_number: "recipientPhoneNumber",
     otp: "otpCode",
 };
 
 client
-    .verifyOTP(verifyParams)
+    .verifyOTP(verifyParamsOld)
     .then((response) => {
         console.log("OTP verification successful:", response);
     })
@@ -145,6 +145,78 @@ client
 
 ```
 
+### More Examples:
+
+```javascript
+const HellioMessaging = require('helliomessaging'); // Assuming the package name is 'helliomessaging'
+
+// Initialize with your credentials
+const hellioOptions = {
+    clientId: 'YOUR-CLIENT-ID',
+    applicationSecret: 'YOUR-CLIENT-SECRET'
+};
+
+const hellioMessaging = new HellioMessaging(hellioOptions);
+
+// Define SMS parameters
+const smsParams = {
+    senderId: 'YourSenderID', // Max 11 characters
+    msisdn: '233242813656', // Recipient's mobile number
+    message: 'Hello from HellioMessaging NodeJS SDK!'
+};
+
+// Send SMS
+hellioMessaging.sendSMS(smsParams)
+    .then(response => {
+        console.log('SMS sent successfully!');
+        console.log('Response:', response);
+        // Expected successful response structure:
+        // { success: true, messageId: "some-message-id", ... }
+    })
+    .catch(error => {
+        console.error('Error sending SMS:');
+        console.error('Error details:', error);
+        // Expected error response structure:
+        // { success: false, error: "Error message", ... }
+    });
+
+// Example for sending OTP (already in the library)
+const otpParams = {
+    mobile_number: "233242813656",
+    // timeout: 600, // Optional: defaults to 600 seconds
+    // message: "Your OTP is {otp_code}", // Optional: Customize message
+    senderId: "YourSenderID",
+    // tokenlength: 6, // Optional: defaults to 6
+    // recipient_email: "user@example.com", // Optional
+    // messageType: 0 // Optional: 0 for text, 1 for voice; defaults to 0
+};
+
+hellioMessaging.sendOTP(otpParams)
+    .then(response => {
+        console.log('OTP sent successfully!');
+        console.log('Response:', response);
+    })
+    .catch(error => {
+        console.error('Error sending OTP:');
+        console.error('Error details:', error);
+    });
+
+// Example for Verifying OTP (already in the library)
+const verifyOtpParams = {
+    mobile_number: "233242813656",
+    otp: "123456" // The OTP code received by the user
+};
+
+hellioMessaging.verifyOTP(verifyOtpParams)
+    .then(response => {
+        console.log('OTP verified successfully!');
+        console.log('Response:', response);
+    })
+    .catch(error => {
+        console.error('Error verifying OTP:');
+        console.error('Error details:', error);
+    });
+```
 
 ## Features
 
