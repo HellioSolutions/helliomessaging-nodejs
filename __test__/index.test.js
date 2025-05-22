@@ -12,32 +12,62 @@ describe("HellioMessaging", () => {
 
     // Send SMS
     describe("sendSMS", () => {
+        let mockPost;
+
+        beforeEach(() => {
+            // Reset the mock before each test
+            mockPost = jest.spyOn(hellioMessaging.api, 'post');
+        });
+
+        afterEach(() => {
+            // Restore the original implementation after each test
+            mockPost.mockRestore();
+        });
+
         it("should send an SMS message successfully", async () => {
             // Define test parameters
-            const senderId = "HellioSMS";
-            const msisdn = "233242813656";
-            const message = "Hello, this is a test message from the Hellio Messaging NodeJs package.";
+            const params = {
+                senderId: "HellioSMS",
+                msisdn: "233242813656",
+                message: "Hello, this is a test message from the Hellio Messaging NodeJs package.",
+            };
+
+            // Mock the successful API response
+            mockPost.mockResolvedValueOnce({
+                // data is not nested under a data property in the original code when returning response.data
+                success: true,
+                messageId: "some-message-id",
+            });
 
             // Call the sendSMS function
-            const result = await hellioMessaging.sendSMS(senderId, msisdn, message);
+            const result = await hellioMessaging.sendSMS(params);
 
             // Assert that the result is successful
             expect(result.success).toBe(true);
-            expect(result.messageId).toBeDefined();
+            expect(result.messageId).toBe("some-message-id");
         });
 
         it("should return an error for invalid parameters", async () => {
             // Define test parameters with invalid values
-            const senderId = "";
-            const msisdn = "INVALID_PHONE_NUMBER";
-            const message = "";
+            const params = {
+                senderId: "",
+                msisdn: "INVALID_PHONE_NUMBER",
+                message: "",
+            };
+
+            // Mock the error API response
+            // The original code uses Promise.reject(error.response.data)
+            mockPost.mockRejectedValueOnce({
+                success: false,
+                error: "Invalid parameters",
+            });
 
             // Call the sendSMS function
-            const result = await hellioMessaging.sendSMS(senderId, msisdn, message);
+            const result = await hellioMessaging.sendSMS(params);
 
             // Assert that the result contains an error
             expect(result.success).toBe(false);
-            expect(result.error).toBeDefined();
+            expect(result.error).toBe("Invalid parameters");
         });
     });
 
